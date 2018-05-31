@@ -1,0 +1,15 @@
+{
+    " publishers ": [{
+            "id": "1",
+            "name": "Activision"
+        },
+        {
+            "id": "2",
+            "name": " Ubisoft"
+        },
+        {
+            "id": "3",
+            "name": " Rockstar"
+        }
+    ]
+}
