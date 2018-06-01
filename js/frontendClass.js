@@ -1,44 +1,36 @@
 // select which fieds will be in the header &  rows
 // for example: 'genre' in header, 'year' in rows etc.
-function StructureSet(params) {
+function StructureSet(params, parent) {
 
-    var params = params,
+    // private:
+    var 
+        parent = parent,
+        params = params,
         name = params['name'],
         id = params['id'],
         code = params['code'],
-        tmpCheck = undefined,
-        item;
+        __value = undefined,
+        __onCheck,
+        __onUncheck;
 
-    var __onCheck, __onUncheck;
-    this.onCheck = function (promise) {
-        __onCheck = function (params) {
-            return promise(params);
-        }
-    }
-
-    this.onUncheck = function (promise) {
-        __onUncheck = function (params) {
-            return promise(params);
-        }
-    }
 
     function check() {
-        var currValue = $('input[type="radio"][name="' + code + '"]:checked').val();
+        var currValue = $('.structure__body input[type="radio"][name="' + code + '"]:checked').val();
 
-        if (tmpCheck == undefined) {
-            tmpCheck = currValue;
+        if (__value == undefined) {
+            __value = currValue;
             __onCheck(params);
-        } else if (tmpCheck != currValue) {
-            tmpCheck = currValue;
+        } else if (__value != currValue) {
+            __value = currValue;
         } else {
             // uncheck all 
-            $('input[type="radio"][name="' + code + '"]').prop("checked", false);
-            tmpCheck = undefined;
+            $('.structure__body input[type="radio"][name="' + code + '"]').prop("checked", false);
+            __value = undefined;
             __onUncheck(params);
         }
     }
 
-    item = $('<tr/>')
+    var item = $('<tr/>')
         .append($('<th/>', {
             text: name
         }))
@@ -61,12 +53,26 @@ function StructureSet(params) {
 
 
 
-    // return tr;
-
-    this.item = item;
-    this.append = function (parent) {
-
         $(parent).append($(item));
+    // public:
+
+    this.onCheck = function (promise) {
+        __onCheck = function (params) {
+            return promise(params);
+        }
+    }
+
+    this.onUncheck = function (promise) {
+        __onUncheck = function (params) {
+            return promise(params);
+        }
+    }
+
+    this.value = function () {
+        return __value;
+    }
+    this.id = function () {
+        return id;
     }
 
 }
@@ -74,39 +80,58 @@ function StructureSet(params) {
 
 // set what kind of data will be showed in cube
 // for example: 'count' or 'profit'
-function Measurements(params) {
-    var name = params['name'],
-        id = params['id'],
-        code = params['code'],
-        item;
+function Measurements(params, parent) {
+    var list = params,
+        parent = $(parent),
+        // name = params['name'],
+        // id = params['id'],
+        // code = params['code'],
+        __value;
 
-    item = $('<label/>', {
-        text: name,
-        for: code
-    }).prepend($('<input/>', {
-        name: 'measure',
-        id: code,
-        type: 'radio',
-        value: id
-    }))
-
-    this.item = item;
-    this.append = function (parent) {
-
-        $(parent).append($(item));
-        // $('.measurements__body').append($(item));
+    function onClick(id) {
+        __value = id;
     }
+
+    $(parent).empty();
+    list.forEach(function (element) {
+        var item = $('<label/>', {
+            text: element['name'],
+            for: element['code']
+        }).prepend($('<input/>', {
+            name: 'measure',
+            id: element['code'],
+            type: 'radio',
+            value: element['id']
+        }))
+        .click( function(e) {
+             onClick(element['id']);
+        });
+        $(parent).append($(item));
+
+    }, this);
+
+
+    // this.data = data;
+    // this.append = function (parent) {
+    //     $(parent).append($(data));
+    //     // $('.measurements__body').append($(data));
+    // }
+    this.value = function () {
+        return __value;
+    }
+
 
 }
 
 // select which values of field will be used
 // for example: values '2012','2015' for field "year"
-function DropDownList(params) {
+function DropDownList(params, parent) {
 
     var name = params['name'],
         id = params['id'],
         code = params['code'],
-        list = params['data'];
+        list = params['data'],
+        __values;
 
     var ul = $('<ul/>');
 
@@ -127,26 +152,38 @@ function DropDownList(params) {
 
     }, this);
 
-    var item = $('<div/>', {
+    var data = $('<div/>', {
         class: 'menu',
         id: code
     });
 
-    item.append($('<span/>', {
+    data.append($('<span/>', {
                 class: 'title',
                 text: name
             })
             .click(function () {
-                $(item).toggleClass('open');
+                $(data).toggleClass('open');
             })
         )
         .append($(ul));
 
-    this.item = item;
-    this.append = function (parent) {
+    $(parent).append($(data));
+    // this.data = data;
+    // this.append = function (parent) {
 
-        $(parent).append($(item));
-        // $('.drop-down-list').append($(item));
+    //     $(parent).append($(data));
+    //     // $('.drop-down-list').append($(data));
+    // }
+    this.values = function () {
+        __values = [];
+        var i = 0;
+        $('.drop-down-list .menu input[type="checkbox"]:checked').each(function (i, item) {
+            __values[i++] = $(item).val();
+        }, this);
+        return __values;
+    }
+    this.id = function () {
+        return id;
     }
 
 }
@@ -161,13 +198,13 @@ function DropDownList(params) {
     var tr = new StructureSet(params);
     tr.append(true);
 
-    var item = new Measurements({
+    var data = new Measurements({
             "id": 1,
             "code": "count",
             "name": "Количество"
         });
 
-    $('.measurements__body').empty().append($(item.item));
+    $('.measurements__body').empty().append($(data.data));
 
     params['data'] = [{
             "id": "1",
@@ -184,6 +221,6 @@ function DropDownList(params) {
     ];
 
     var list = new DropDownList(params);
-    $('.drop-down-list').empty().append($(list.item));
+    $('.drop-down-list').empty().append($(list.data));
 
 */
