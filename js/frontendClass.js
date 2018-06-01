@@ -2,21 +2,39 @@
 // for example: 'genre' in header, 'year' in rows etc.
 function StructureSet(params) {
 
-    var name = params['name'],
+    var params = params,
+        name = params['name'],
         id = params['id'],
         code = params['code'],
         tmpCheck = undefined,
         item;
 
+    var __onCheck, __onUncheck;
+    this.onCheck = function (promise) {
+        __onCheck = function (params) {
+            return promise(params);
+        }
+    }
+
+    this.onUncheck = function (promise) {
+        __onUncheck = function (params) {
+            return promise(params);
+        }
+    }
+
     function check() {
         var currValue = $('input[type="radio"][name="' + code + '"]:checked').val();
 
-        if (tmpCheck == undefined || (tmpCheck != undefined && tmpCheck != currValue))
+        if (tmpCheck == undefined) {
             tmpCheck = currValue;
-        else {
+            __onCheck(params);
+        } else if (tmpCheck != currValue) {
+            tmpCheck = currValue;
+        } else {
             // uncheck all 
             $('input[type="radio"][name="' + code + '"]').prop("checked", false);
             tmpCheck = undefined;
+            __onUncheck(params);
         }
     }
 
@@ -46,11 +64,9 @@ function StructureSet(params) {
     // return tr;
 
     this.item = item;
-    this.append = function (empty = false) {
-        if (empty) {
-            $('.structure__body').empty();
-        }
-        $('.structure__body').append($(item));
+    this.append = function (parent) {
+
+        $(parent).append($(item));
     }
 
 }
@@ -68,18 +84,17 @@ function Measurements(params) {
         text: name,
         for: code
     }).prepend($('<input/>', {
-        name: code,
+        name: 'measure',
         id: code,
         type: 'radio',
         value: id
     }))
 
     this.item = item;
-    this.append = function (empty = false) {
-        if (empty) {
-            $('.measurements__body').empty();
-        }
-        $('.measurements__body').append($(item));
+    this.append = function (parent) {
+
+        $(parent).append($(item));
+        // $('.measurements__body').append($(item));
     }
 
 }
@@ -128,11 +143,10 @@ function DropDownList(params) {
         .append($(ul));
 
     this.item = item;
-    this.append = function (empty = false) {
-        if (empty) {
-            $('.drop-down-list').empty();
-        }
-        $('.drop-down-list').append($(item));
+    this.append = function (parent) {
+
+        $(parent).append($(item));
+        // $('.drop-down-list').append($(item));
     }
 
 }
