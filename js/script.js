@@ -210,19 +210,26 @@
         $(head).append($(names));
 
         //   b) set the body
-
         (data['rows']).forEach(function (row) {
-            var values = $('<tr/>');
+            var values = $('<tr/>'),
+                gray = false;
 
             (row['columns']).forEach(function (element) {
+                if (element == null)
+                    gray = true;
                 $(values).append($('<th/>', {
-                    text: element
+                    text: ((element == null)? '--- Все ---' : element),
+                    class: ((gray) ? 'gray' : '')
                 }))
             }, this);
 
             (row['data']).forEach(function (element) {
+                if (element == null)
+                    gray = true;
+
                 $(values).append($('<td/>', {
-                    text: element
+                    text: ((element == null)? '--- Все ---' : element),
+                    class: ((gray) ? 'gray' : '')
                 }))
             }, this);
             $(body).append($(values));

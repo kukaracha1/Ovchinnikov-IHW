@@ -12,18 +12,78 @@
 		},
 		"rows": [{
 				"columns": [
-					"Великобритани",
-					"FAcepunch"
+					"Великобритания",
+					"Facepunch Studios"
 				],
-				"data": [6, 6, 6]
+				"data": [0, 6, 6]
 			},
 			{
 				"columns": [
-					"Великобритани",
-					"FAcepunch"
+					"Великобритания",
+					"Rockstart"
 				],
 				"data": [12, 42, 0]
+			},
+			{
+				"columns": [
+					"Великобритания",
+					null
+				],
+				"data": [12, 48, 6]
+			},
+			{
+				"columns": [
+					"Германия",
+					"Deep Silver"
+				],
+				"data": [0, 1, 0]
+			},
+			{
+				"columns": [
+					"Германия",
+					null
+				],
+				"data": [0, 1, 0]
+			},
+			{
+				"columns": [
+					"США",
+					"2K"
+				],
+				"data": [0, 20, 0]
+			},
+			{
+				"columns": [
+					"США",
+					"Activision"
+				],
+				"data": [10, 0, 0]
+			},
+			{
+				"columns": [
+					"США",
+					"EA"
+				],
+				"data": [0, 5, 0]
+			},
+			{
+				"columns": [
+					"США",
+					null
+				],
+				"data": [10, 25, 0]
+			},
+			{
+				"columns": [
+					null,
+					null
+				],
+				"data": [22, 74, 6]
 			}
+
+
+
+
 		]
 	},
 	"status": "ok"
