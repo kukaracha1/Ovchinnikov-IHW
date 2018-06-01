@@ -1,5 +1,5 @@
 {
-    " publishers ": [{
+    "data": [{
             "id": "1",
             "name": "Activision"
         },
@@ -11,5 +11,6 @@
             "id": "3",
             "name": " Rockstar"
         }
-    ]
+    ],
+    "status":"ok"
 }
