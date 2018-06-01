@@ -124,7 +124,7 @@ function Measurements(params, parent) {
 function DropDownList(params, parent) {
 
     var name = params['name'],
-        id = ((params['id'] == undefined)? "" : params['id']),
+        id = params['id'],
         code = params['code'],
         list = params['data'],
         __values;
@@ -141,7 +141,7 @@ function DropDownList(params, parent) {
                     type: 'checkbox',
                     name: (element['name'] + element['id']),
                     id: (element['name'] + element['id']),
-                    value: element['name']
+                    value: ((element['id'] == undefined)? element['name'] : element['id'])
                 }))
             );
         $(ul).append($(tmpLi));
@@ -173,7 +173,7 @@ function DropDownList(params, parent) {
     this.values = function () {
         __values = [];
         var i = 0;
-        $('.drop-down-list .menu input[type="checkbox"]:checked').each(function (i, item) {
+        $('.drop-down-list #'+code+'.menu input[type="checkbox"]:checked').each(function (i, item) {
             __values[i++] = $(item).val();
         }, this);
         return __values;

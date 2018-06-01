@@ -129,7 +129,7 @@
             if (tmpVal != undefined) {
                 // get selected data from each field
                 var tmpList = list.filter(function (element) {
-                    return !(element.code() == tmpCode);
+                    return (element.code() == tmpCode);
                 });
                 var tmpData = tmpList[0].values();
 
