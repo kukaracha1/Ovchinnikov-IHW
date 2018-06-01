@@ -101,10 +101,30 @@ input:focus {
     outline: none;
     /* Скрываем рамку */
 }
+
 .gray {
     background: #dddddd;
 }
-.cube-table tr > *
-{
+
+.cube-table tr>* {
     text-align: center;
+}
+
+.none {
+    display: none;
+}
+
+.thclick {
+    cursor: pointer;
+    transition: 0.2s background-color linear;
+}
+
+.thclick:hover {
+    background: #c0c0c0;
+}
+.table-striped>tbody>tr.values{
+    transition: 0.1s background-color linear
+}
+.table-striped>tbody>tr.values:hover {
+    background: #f0f0f0!important;
 }

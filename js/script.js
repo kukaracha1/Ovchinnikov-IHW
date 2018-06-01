@@ -211,16 +211,39 @@
 
         //   b) set the body
         (data['rows']).forEach(function (row) {
-            var values = $('<tr/>'),
-                gray = false;
+            var values = $('<tr/>', {
+                    class: 'values'
+                }),
+                gray = false,
+                parentName = "";
 
-            (row['columns']).forEach(function (element) {
-                if (element == null)
+            (row['columns']).forEach(function (element, index) {
+
+                var th = $('<th/>', {
+                    text: ((element == null) ? '--- Все ---' : element),
+                    class: ((gray || element == null) ? 'gray' : '')
+                });
+
+                if (element == null) {
                     gray = true;
-                $(values).append($('<th/>', {
-                    text: ((element == null)? '--- Все ---' : element),
-                    class: ((gray) ? 'gray' : '')
-                }))
+                    $(th).addClass('thclick').click(function (e) {
+                        e.preventDefault();
+                        // console.log(this.dataset['clicked']);
+                        if (this.dataset['clicked'] == "1") {
+                            $('.values[data-' + index + '="' + parentName + '"]').removeClass('hide');
+                            this.dataset['clicked'] = "0";
+                        } else {
+                            $('.values[data-' + index + '="' + parentName + '"]').addClass('hide');
+                            this.dataset['clicked'] = "1";
+
+                        }
+
+                    })
+                } else {
+                    $(values).attr('data-' + index, parentName);
+                    parentName = element;
+                }
+                $(values).append($(th));
             }, this);
 
             (row['data']).forEach(function (element) {
@@ -228,7 +251,7 @@
                     gray = true;
 
                 $(values).append($('<td/>', {
-                    text: ((element == null)? '--- Все ---' : element),
+                    text: ((element == null) ? '--- Все ---' : element),
                     class: ((gray) ? 'gray' : '')
                 }))
             }, this);
