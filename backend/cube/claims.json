@@ -1,36 +1,30 @@
 {
 	"data": {
 		"header": {
-			"columns": [{
-					"code": "country",
-					"name": "Страна"
-				},
-				{
-					"code": "publisher",
-					"name": "Издатель"
-				}
+			"columns": [
+				"Страна",
+				"Издатель"
 			],
 			"head": {
-				"code": "genre",
 				"name": "Жанр",
 				"data": ["Экшн", "Шутер", "Гонки"]
 			}
 		},
 		"rows": [{
-				"columns": {
-					"country": "Великобритани",
-					"publisher": "FAcepunch"
-				},
+				"columns": [
+					"Великобритани",
+					"FAcepunch"
+				],
 				"data": [6, 6, 6]
 			},
 			{
-				"columns": {
-					"country": "Великобритани",
-					"publisher": "Rockstar"
-				},
+				"columns": [
+					"Великобритани",
+					"FAcepunch"
+				],
 				"data": [12, 42, 0]
 			}
 		]
 	},
-	"status" : "ok"
+	"status": "ok"
 }

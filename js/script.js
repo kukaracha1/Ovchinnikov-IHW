@@ -15,6 +15,12 @@
                 b) form the model
                 c) send ajax
             3. cube drawing
+                a) set the header
+                    1) form the row (in the cycle)
+                    2) draw the row
+                b) set the body
+                    1) form the row (in the cycle)
+                    2) draw the row
         */
 
         //  1. params drawing
@@ -162,4 +168,67 @@
             .fail(function (error) {
                 console.log(error);
             })
+    }
+
+    function cubeDraw(data) {
+        var cube = $('.cube-table').empty(),
+            head = $('<thead/>', {
+                class: 'cube-head'
+            }),
+            body = $('<tbody/>', {
+                class: 'cube-body'
+            });
+
+
+        //  a) set header
+        $(head)
+            .append($('<tr/>')
+                .append($('<th/>', {
+                    colspan: data['header']['columns'].length
+                }))
+                .append($('<th/>', {
+                    colspan: data['header']['head']['data'].length,
+                    text: data['header']['head']['name']
+                })));
+
+        var names = $('<tr/>', {
+            class: 'cube-head-names'
+        });
+
+        (data['header']['columns']).forEach(function (element) {
+            $(names).append($('<th/>', {
+                text: element
+            }))
+        }, this);
+
+        (data['header']['head']['data']).forEach(function (element) {
+            $(names).append($('<th/>', {
+                text: element
+            }))
+        }, this);
+
+        $(head).append($(names));
+
+        //   b) set the body
+
+        (data['rows']).forEach(function (row) {
+            var values = $('<tr/>');
+
+            (row['columns']).forEach(function (element) {
+                $(values).append($('<th/>', {
+                    text: element
+                }))
+            }, this);
+
+            (row['data']).forEach(function (element) {
+                $(values).append($('<td/>', {
+                    text: element
+                }))
+            }, this);
+            $(body).append($(values));
+        }, this);
+
+
+        $(cube).append($(head)).append($(body));
+
     }
