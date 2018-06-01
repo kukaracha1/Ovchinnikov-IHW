@@ -1,0 +1,14 @@
+{
+    "measurements": "profit",
+    "row": [{
+        "code": "publisher",
+        "data": ["Activision", " Ubisoft"]
+    }, {
+        "code": "year",
+        "data": [" 2012", " 2015"]
+    }],
+    "header": [{
+        "code": "genre",
+        "data": ["Экшн", "Шутер", "Гонки"]
+    }]
+}

@@ -1,34 +1,27 @@
 {
     "data": [{
-            "id": 1,
-            "code": "countries",
+            "code": "country",
             "name": "Страна"
         },
         {
-            "id": 2,
-            "code": "genres",
+            "code": "genre",
             "name": "Жанр"
         },
         {
-            "id": 3,
-            "code": "publishers",
+            "code": "publisher",
             "name": "Издатель"
         },
         {
-            "id": 4,
-            "code": "years",
+            "code": "year",
             "name": "Год"
         }
-
     ],
     "measures": [
         {
-            "id": 1,
             "code": "count",
             "name": "Количество"
         },
         {
-            "id": 2,
             "code": "profit",
             "name": "Прибыль"
         }

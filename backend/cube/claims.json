@@ -1,15 +1,36 @@
-{"data":{
-"header": {
-	"genre" : [ "Экшн" , "Шутер" ,"Гонки"]
-	},
-"rows": [
-		{
-			"columns" : { "country" : "Россия" },
-			"data" : [ 6, 6, 6 ]
+{
+	"data": {
+		"header": {
+			"columns": [{
+					"code": "country",
+					"name": "Страна"
+				},
+				{
+					"code": "publisher",
+					"name": "Издатель"
+				}
+			],
+			"head": {
+				"code": "genre",
+				"name": "Жанр",
+				"data": ["Экшн", "Шутер", "Гонки"]
+			}
 		},
-		{
-			"columns" : { "country" : "США"  },
-			"data" : [ 12, 42, 0 ]
-		}
-	]
-}}
+		"rows": [{
+				"columns": {
+					"country": "Великобритани",
+					"publisher": "FAcepunch"
+				},
+				"data": [6, 6, 6]
+			},
+			{
+				"columns": {
+					"country": "Великобритани",
+					"publisher": "Rockstar"
+				},
+				"data": [12, 42, 0]
+			}
+		]
+	},
+	"status" : "ok"
+}

@@ -94,7 +94,7 @@
         $('.drop-down-list #' + params['code'] + '.menu').remove();
 
         list = list.filter(function (item) {
-            return !(item['id'] == params['id']);
+            return !(item.code() == params['code']);
         });
 
     }
@@ -103,6 +103,10 @@
         $('.drop-down-list .menu').remove();
         $('.structure__body input[type="radio"]').prop('checked', false);
         $('.measurements__body input[type="radio"]').prop('checked', false);
+        fields = [];
+        measures = undefined;
+        list = [];
+
     }
 
     // 2. gathering adjusted params & build ajax query
@@ -110,7 +114,7 @@
 
         // b) form the model
         var data = {
-            'measurements': [],
+            'measurements': -1,
             'row': [],
             'header': []
         };
@@ -120,17 +124,17 @@
 
         fields.forEach(function (item) {
             var tmpVal = item.value(),
-                tmpId = item.id();
+                tmpCode = item.code();
 
             if (tmpVal != undefined) {
                 // get selected data from each field
                 var tmpList = list.filter(function (element) {
-                    return !(element.id() == tmpId);
+                    return !(element.code() == tmpCode);
                 });
                 var tmpData = tmpList[0].values();
 
                 data[tmpVal].push({
-                    id: tmpId,
+                    code: tmpCode,
                     data: tmpData
                 });
 
@@ -144,11 +148,12 @@
                 url: 'backend/cube/claims.json',
                 dataType: 'json',
                 method: 'GET',
+                data: data
             })
             .done(function (response) {
                 if (response['status'] == 'ok') {
                     //  3. cube drawing
-
+                    cubeDraw(response['data']);
 
                 } else {
                     // internal error

@@ -7,7 +7,6 @@ function StructureSet(params, parent) {
         parent = parent,
         params = params,
         name = params['name'],
-        id = params['id'],
         code = params['code'],
         __value = undefined,
         __onCheck,
@@ -71,8 +70,8 @@ function StructureSet(params, parent) {
     this.value = function () {
         return __value;
     }
-    this.id = function () {
-        return id;
+    this.code = function () {
+       return code;
     }
 
 }
@@ -83,9 +82,6 @@ function StructureSet(params, parent) {
 function Measurements(params, parent) {
     var list = params,
         parent = $(parent),
-        // name = params['name'],
-        // id = params['id'],
-        // code = params['code'],
         __value;
 
     function onClick(id) {
@@ -101,10 +97,10 @@ function Measurements(params, parent) {
             name: 'measure',
             id: element['code'],
             type: 'radio',
-            value: element['id']
+            value: element['code']
         }))
         .click( function(e) {
-             onClick(element['id']);
+             onClick(element['code']);
         });
         $(parent).append($(item));
 
@@ -128,7 +124,7 @@ function Measurements(params, parent) {
 function DropDownList(params, parent) {
 
     var name = params['name'],
-        id = params['id'],
+        id = ((params['id'] == undefined)? "" : params['id']),
         code = params['code'],
         list = params['data'],
         __values;
@@ -145,7 +141,7 @@ function DropDownList(params, parent) {
                     type: 'checkbox',
                     name: (element['name'] + element['id']),
                     id: (element['name'] + element['id']),
-                    value: element['id']
+                    value: element['name']
                 }))
             );
         $(ul).append($(tmpLi));
@@ -182,8 +178,8 @@ function DropDownList(params, parent) {
         }, this);
         return __values;
     }
-    this.id = function () {
-        return id;
+    this.code = function () {
+       return code;
     }
 
 }
